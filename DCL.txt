@@ -1,0 +1,134 @@
+mca32@mca32:~$ sudo mysql -u root
+[sudo] password for mca32: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.42-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> desc student;
+ERROR 1046 (3D000): No database selected
+mysql> use mca;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | varchar(20) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
++---------+---------+------+--------+
+2 rows in set (0.01 sec)
+
+mysql> insert into student values(3,"irfana",22,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint a;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(4,"mariya",22,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint a;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint b;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(5,"sneha",22,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint c;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
+|       3 | irfana  |   22 | female |
+|       4 | mariya  |   22 | female |
+|       5 | sneha   |   22 | female |
++---------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> rollback to b;
+ERROR 1305 (42000): SAVEPOINT b does not exist
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
+|       3 | irfana  |   22 | female |
+|       4 | mariya  |   22 | female |
+|       5 | sneha   |   22 | female |
++---------+---------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> insert into student values(6,"basu",22,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
+|       3 | irfana  |   22 | female |
+|       4 | mariya  |   22 | female |
+|       5 | sneha   |   22 | female |
+|       6 | basu    |   22 | female |
++---------+---------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(7,"ameera",22,"female");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
+|       3 | irfana  |   22 | female |
+|       4 | mariya  |   22 | female |
+|       5 | sneha   |   22 | female |
+|       6 | basu    |   22 | female |
++---------+---------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+
+

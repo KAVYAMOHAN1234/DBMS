@@ -1,0 +1,327 @@
+mca32@mca32:~$ sudo mysql -u root
+[sudo] password for mca32: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.42-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mca
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> show tables;
++----------------+
+| Tables_in_mca  |
++----------------+
+| EMPLOYEE_DUP   |
+| customer       |
+| invoice_item   |
+| invoice_master |
+| person         |
+| product        |
+| student        |
++----------------+
+7 rows in set (0.00 sec)
+
+
+
+
+
+mysql> insert into EMPLOYEE_DUP values(1,"kavya","kothamangalam",2025,896855);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from EMPLOYEE_DUP;
++--------+-------+---------------+------+--------+
+| emp_id | name  | city          | DOB  | ADHAR  |
++--------+-------+---------------+------+--------+
+|      1 | kavya | kothamangalam | 2025 | 896855 |
++--------+-------+---------------+------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into EMPLOYEE_DUP values(1,"kavya","kothamangalam",2003,8896855);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EMPLOYEE_DUP;
++--------+-------+---------------+------+---------+
+| emp_id | name  | city          | DOB  | ADHAR   |
++--------+-------+---------------+------+---------+
+|      1 | kavya | kothamangalam | 2025 |  896855 |
+|      1 | kavya | kothamangalam | 2003 | 8896855 |
++--------+-------+---------------+------+---------+
+2 rows in set (0.01 sec)
+
+
+mysql> delete from EMPLOYEE_DUP;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from EMPLOYEE_DUP;
+Empty set (0.00 sec)
+
+
+mysql> insert into EMPLOYEE_DUP values(1,"kavya","kothamangalam",2003,8896855);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EMPLOYEE_DUP;
++--------+-------+---------------+------+---------+
+| emp_id | name  | city          | DOB  | ADHAR   |
++--------+-------+---------------+------+---------+
+|      1 | kavya | kothamangalam | 2003 | 8896855 |
++--------+-------+---------------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into EMPLOYEE_DUP values(2,"shabina","muvattupuzha",2004,9896855);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from EMPLOYEE_DUP;
++--------+---------+---------------+------+---------+
+| emp_id | name    | city          | DOB  | ADHAR   |
++--------+---------+---------------+------+---------+
+|      1 | kavya   | kothamangalam | 2003 | 8896855 |
+|      2 | shabina | muvattupuzha  | 2004 | 9896855 |
++--------+---------+---------------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | char(20)    | NO   |     | NULL    |       |
+| city    | varchar(20) | YES  |     | NULL    |       |
+| phone   | int         | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> insert into customer values(1.,"shabina","akadayil","muvattupuzha",98968525);
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> select * from customer;
++----+---------+----------+--------------+----------+
+| id | name    | address  | city         | phone    |
++----+---------+----------+--------------+----------+
+|  1 | shabina | akadayil | muvattupuzha | 98968525 |
++----+---------+----------+--------------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into customer values(2.,"kavya","mangalathu","kuttampuzha",98968525);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++----+---------+------------+--------------+----------+
+| id | name    | address    | city         | phone    |
++----+---------+------------+--------------+----------+
+|  1 | shabina | akadayil   | muvattupuzha | 98968525 |
+|  2 | kavya   | mangalathu | kuttampuzha  | 98968525 |
++----+---------+------------+--------------+----------+
+2 rows in set (0.00 sec)
+
+
+mysql> insert into invoice_master values(1,1,"2007-05-07");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from invoice_master;
++-----+---------+------------+
+| inv | cust_id | inv_date   |
++-----+---------+------------+
+|   1 |       1 | 2007-05-07 |
++-----+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into invoice_master values(2,2,"2003-05-25");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from invoice_master;
++-----+---------+------------+
+| inv | cust_id | inv_date   |
++-----+---------+------------+
+|   1 |       1 | 2007-05-07 |
+|   2 |       2 | 2003-05-25 |
++-----+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> desc product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into product  values(1,"pears",30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from product;
++-----+-------+-------+
+| pid | name  | price |
++-----+-------+-------+
+|   1 | pears |    30 |
++-----+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into product  values(2,"sandhoor",35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from product;
++-----+----------+-------+
+| pid | name     | price |
++-----+----------+-------+
+|   1 | pears    |    30 |
+|   2 | sandhoor |    35 |
++-----+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | MUL | NULL    |       |
+| pid      | int  | NO   | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into invoice_item  values(1,1,32);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into invoice_item  values(2,2,52);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+-----+----------+
+| inv_id | pid | quantity |
++--------+-----+----------+
+|      1 |   1 |       32 |
+|      2 |   2 |       52 |
++--------+-----+----------+
+2 rows in set (0.00 sec)
+
+mysql> desc student;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| gender  | varchar(20) | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values(1,"kavya",22,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(2,"shabina",21,"female");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++---------+---------+------+--------+
+| roll_no | name    | age  | gender |
++---------+---------+------+--------+
+|       1 | kavya   |   22 | female |
+|       2 | shabina |   21 | female |
++---------+---------+------+--------+
+2 rows in set (0.00 sec)
+
+
+mysql> update product set price=20 where pid=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from product;
++-----+----------+-------+
+| pid | name     | price |
++-----+----------+-------+
+|   1 | pears    |    20 |
+|   2 | sandhoor |    35 |
++-----+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update customer set city="kozhikode" where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+---------+------------+-------------+----------+
+| id | name    | address    | city        | phone    |
++----+---------+------------+-------------+----------+
+|  1 | shabina | akadayil   | kozhikode   | 98968525 |
+|  2 | kavya   | mangalathu | kuttampuzha | 98968525 |
++----+---------+------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> update product set price=price+(price*2/100);
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 2  Changed: 1  Warnings: 0
+
+
+mysql> select * from product;
++-----+----------+-------+
+| pid | name     | price |
++-----+----------+-------+
+|   1 | pears    |    20 |
+|   2 | sandhoor |    36 |
++-----+----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> update customer set address="vennel", city="kolacherry", phone=895656321;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from customer;
++----+---------+---------+------------+-----------+
+| id | name    | address | city       | phone     |
++----+---------+---------+------------+-----------+
+|  1 | shabina | vennel  | kolacherry | 895656321 |
+|  2 | kavya   | vennel  | kolacherry | 895656321 |
++----+---------+---------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> update customer set address="mangalathu", city="kothamangalam", phone=735656321 where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++----+---------+------------+---------------+-----------+
+| id | name    | address    | city          | phone     |
++----+---------+------------+---------------+-----------+
+|  1 | shabina | vennel     | kolacherry    | 895656321 |
+|  2 | kavya   | mangalathu | kothamangalam | 735656321 |
++----+---------+------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> update invoice_item  set quantity=40  where inv_id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from invoice_item;
++--------+-----+----------+
+| inv_id | pid | quantity |
++--------+-----+----------+
+|      1 |   1 |       32 |
+|      2 |   2 |       40 |
++--------+-----+----------+
+2 rows in set (0.01 sec)
+
+mysql> delete from custome where id=1;
+ERROR 1146 (42S02): Table 'mca.custome' doesn't exist
+mysql> delete from customer where id=1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`mca`.`invoice_master`, CONSTRAINT `invoice_master_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`id`))
+mysql> delete from invoice_master where cust_id id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id=1' at line 1
+mysql> 
+
+

@@ -1,0 +1,121 @@
+mca32@mca32:~$ sudo mysql -u root
+[sudo] password for mca32: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.42-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mca;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_mca  |
++----------------+
+| EMPLOYEE_DUP   |
+| customer       |
+| invoice_item   |
+| invoice_master |
+| person         |
+| product        |
+| student        |
++----------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from customer where phone no=null
+    -> select * from customer where phone no=null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'no=null
+select * from customer where phone no=null' at line 1
+mysql> select * from customer where phone no=null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'no=null' at line 1
+mysql> desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | char(20)    | NO   |     | NULL    |       |
+| city    | varchar(20) | YES  |     | NULL    |       |
+| phone   | int         | NO   |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customer where phone=null;
+Empty set (0.00 sec)
+
+mysql> select * from customer order by city asc,name desc;
++----+---------+------------+---------------+-----------+
+| id | name    | address    | city          | phone     |
++----+---------+------------+---------------+-----------+
+|  1 | shabina | vennel     | kolacherry    | 895656321 |
+|  2 | kavya   | mangalathu | kothamangalam | 735656321 |
++----+---------+------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> selct name from customer where name like 'a%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct name from customer where name like 'a%'' at line 1
+mysql> selct name from customer where name like 'k%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct name from customer where name like 'k%'' at line 1
+mysql> select name from customer where name like 'k%';
++-------+
+| name  |
++-------+
+| kavya |
++-------+
+1 row in set (0.00 sec)
+
+mysql> selct name from customer where name like '%k%' or name like '%s%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct name from customer where name like '%k%' or name like '%s%'' at line 1
+mysql> select name from customer where name like '%k%' or name like '%s%';
++---------+
+| name    |
++---------+
+| shabina |
+| kavya   |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select name from customer where name like '___%';
++---------+
+| name    |
++---------+
+| shabina |
+| kavya   |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select name from customer where name like '_i%';
+Empty set (0.00 sec)
+
+mysql> select name from customer where name like '_a%';
++-------+
+| name  |
++-------+
+| kavya |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select name from customer where name like 'k__%';
++-------+
+| name  |
++-------+
+| kavya |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select name from customer where name like 's__%';
++---------+
+| name    |
++---------+
+| shabina |
++---------+
+1 row in set (0.00 sec)

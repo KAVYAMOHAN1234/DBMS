@@ -1,0 +1,37 @@
+mysql> select product.name,invoice_item.quantity from product inner join invoice_item on product.pid=invoice_item.pid;
++----------+----------+
+| name     | quantity |
++----------+----------+
+| pears    |       32 |
+| sandhoor |       40 |
++----------+----------+
+2 rows in set (0.01 sec)
+
+
+mysql> select customer.name,product.name,product.price,invoice_master.inv,invoice_master.inv_date,invoice_item.quantity from customer inner join invoice_master on customer.id=invoice_master.inv inner join invoice_item on invoice_master.inv=invoice_item.inv_id inner join product on product.pid=invoice_item.pid where inv_date='2007-05-07';
++---------+-------+-------+-----+------------+----------+
+| name    | name  | price | inv | inv_date   | quantity |
++---------+-------+-------+-----+------------+----------+
+| shabina | pears |    20 |   1 | 2007-05-07 |       32 |
++---------+-------+-------+-----+------------+----------+
+1 row in set (0.00 sec)
+
+
+mysql> SELECT c.name, p.name, im.inv, im.inv_date
+    -> FROM customer c
+    -> LEFT JOIN invoice_master im 
+    ->     ON c.id = im.cust_id
+    -> LEFT JOIN invoice_item ii 
+    ->     ON im.inv = ii.inv_id
+    -> LEFT JOIN product p 
+    ->     ON p.pid = ii.pid;
++---------+----------+------+------------+
+| name    | name     | inv  | inv_date   |
++---------+----------+------+------------+
+| shabina | pears    |    1 | 2007-05-07 |
+| kavya   | sandhoor |    2 | 2003-05-25 |
++---------+----------+------+------------+
+2 rows in set (0.00 sec)
+
+
+

@@ -1,0 +1,135 @@
+
+mysql> DELIMITER //
+mysql> 
+mysql> CREATE FUNCTION price_range(price INT)
+    -> RETURNS VARCHAR(20)
+    -> DETERMINISTIC
+    -> BEGIN
+    ->     DECLARE category VARCHAR(20);
+    -> 
+    ->     IF price <= 5 THEN
+    ->         SET category = 'low';
+    ->     ELSEIF price > 5 AND price <= 50 THEN
+    ->         SET category = 'medium';
+    ->     ELSE
+    ->         SET category = 'high';
+    ->     END IF;
+    -> 
+    ->     RETURN category;
+    -> END //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select pname,price,price_range(price)from product order by price;
+    -> //
+ERROR 1054 (42S22): Unknown column 'pname' in 'field list'
+mysql> select name,price,price_range(price)from product order by price;
+    -> //
++----------+-------+--------------------+
+| name     | price | price_range(price) |
++----------+-------+--------------------+
+| pears    |    25 | medium             |
+| sandhoor |    41 | medium             |
++----------+-------+--------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE customer_1 (
+    ->     id INT,
+    ->     name VARCHAR(15),
+    ->     address VARCHAR(15),
+    ->     city VARCHAR(25),
+    ->     phno BIGINT
+    -> );
+    -> //
+Query OK, 0 rows affected (0.03 sec)
+
+
++-----------------+
+| Tables_in_mca   |
++-----------------+
+| AI              |
+| EMPLOYEE_DUP    |
+| ai              |
+| customer        |
+| customer_1      |
+| invoice_item    |
+| invoice_master  |
+| invoice_product |
+| person          |
+| product         |
+| student         |
++-----------------+
+11 rows in set (0.00 sec)
+
+mysql> create trigger updaterS
+    -> before update
+    -> on customer for each row
+    -> begin
+    -> insert into customer_1
+    -> values(old.id,old.name,old.address,old.city,old.ph_no);
+    -> end //
+ERROR 1054 (42S22): Unknown column 'ph_no' in 'OLD'
+mysql> select * from customer;
+    -> //
++----+---------+------------+---------------+-----------+
+| id | name    | address    | city          | phone     |
++----+---------+------------+---------------+-----------+
+|  1 | shabina | vennel     | kolacherry    | 895656321 |
+|  2 | kavya   | mangalathu | kothamangalam | 735656321 |
++----+---------+------------+---------------+-----------+
+2 rows in set (0.01 sec)
+
+mysql> create trigger updaterS
+    -> before update
+    -> on customer for each row
+    -> begin
+    -> insert into customer_1
+    -> values(old.id,old.name,old.address,old.city,old.phone);
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> update customer set city='Kannur' where id=1;
+    -> //
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
+    -> //
++----+---------+------------+---------------+-----------+
+| id | name    | address    | city          | phone     |
++----+---------+------------+---------------+-----------+
+|  1 | shabina | vennel     | Kannur        | 895656321 |
+|  2 | kavya   | mangalathu | kothamangalam | 735656321 |
++----+---------+------------+---------------+-----------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> create trigger product_price
+    -> before insert
+    -> on product
+    -> for each row
+    -> begin
+    -> if new.price<5 then
+    -> set new.price=10;
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into product values(3,'pen',4);
+    -> //
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from product;
+    -> //
++-----+----------+-------+
+| pid | name     | price |
++-----+----------+-------+
+|   1 | pears    |    25 |
+|   2 | sandhoor |    41 |
+|   3 | pen      |    10 |
++-----+----------+-------+
+3 rows in set (0.00 sec)
+
+
+

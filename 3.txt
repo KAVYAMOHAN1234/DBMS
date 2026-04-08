@@ -1,0 +1,30 @@
+test> use MCA
+switched to db MCA
+MCA> db.createCollection("student")
+{ ok: 1 }
+MCA> db.student.insert({"name","kavya","address","klm","age",20})
+Uncaught:
+SyntaxError: Unexpected token (1:25)
+
+> 1 | db.student.insert({"name","kavya","address","klm","age",20})
+    |                          ^
+  2 |
+
+MCA> db.student.insert({"name":"kavya","address":"klm","age":20})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('69cb9da7ebc0c2771844ba89') }
+}
+MCA> db.student.insertMany([{"name":"kavya","address":"klm","age":20},
+| {"name":"anu","address":"llm","age":22},
+| {"name":"alna","address":"plm","age":23}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69cb9e58ebc0c2771844ba8a'),
+    '1': ObjectId('69cb9e58ebc0c2771844ba8b'),
+    '2': ObjectId('69cb9e58ebc0c2771844ba8c')
+  }
+}
+

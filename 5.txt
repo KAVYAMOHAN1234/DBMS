@@ -1,0 +1,35 @@
+invoice> db.customer.find().sort({Name:1})
+[
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba93'),
+    Name: 'anu',
+    city: 'kannur',
+    phn: '9895656',
+    age: 22
+  },
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba92'),
+    Name: 'kavya',
+    city: 'ernakulam',
+    phn: '9895656',
+    age: 22
+  }
+]
+
+
+invoice> db.customer.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
+[ { _id: 'ernakulam', total: 1 }, { _id: 'kannur', total: 1 } ]
+
+
+
+
+invoice> db.customer.aggregate([{$group:{_id:"$city",max_age:{$max:"age"},min_age:{"$age"}}}])
+| 
+Uncaught:
+SyntaxError: Unexpected token (1:80)
+
+> 1 | db.customer.aggregate([{$group:{_id:"$city",max_age:{$max:"age"},min_age:{"$age"}}}])
+    |                                                                                 ^
+  2 |
+
+

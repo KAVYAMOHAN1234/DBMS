@@ -1,0 +1,6 @@
+invoice> db.createUser({user:"kavya",pwd:"123",roles:[{role:"read",db:"invoice"}]})
+| 
+{ ok: 1 }
+
+
+drop

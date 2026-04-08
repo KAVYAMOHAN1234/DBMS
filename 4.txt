@@ -1,0 +1,82 @@
+mca> use invoice;
+switched to db invoice
+invoice> db.customer.insertMany([{ "Name": "kavya", "city": "ernakulam", "phn": "9895656", "age": 22 }, { "Name": "anu", "city": "kannur", "phn": "9895656", "age": 22 }]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('69ccaed8aa43e08e5844ba92'),
+    '1': ObjectId('69ccaed8aa43e08e5844ba93')
+  }
+}
+
+
+invoice> db.customer.find().pretty()
+[
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba92'),
+    Name: 'kavya',
+    city: 'ernakulam',
+    phn: '9895656',
+    age: 22
+  },
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba93'),
+    Name: 'anu',
+    city: 'kannur',
+    phn: '9895656',
+    age: 22
+  }
+]
+
+
+invoice> db.customer.find({$or:[{"city":"ernakulam"},{"city":"kannur"}]}).pretty();
+[
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba92'),
+    Name: 'kavya',
+    city: 'ernakulam',
+    phn: '9895656',
+    age: 22
+  },
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba93'),
+    Name: 'anu',
+    city: 'kannur',
+    phn: '9895656',
+    age: 22
+  }
+]
+
+
+invoice> db.customer.find({"age":{$gt:21}}).pretty();
+[
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba92'),
+    Name: 'kavya',
+    city: 'ernakulam',
+    phn: '9895656',
+    age: 22
+  },
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba93'),
+    Name: 'anu',
+    city: 'kannur',
+    phn: '9895656',
+    age: 22
+  }
+]
+
+
+
+invoice> db.customer.find({"city":{$ne:"kannur"}}).pretty();
+[
+  {
+    _id: ObjectId('69ccaed8aa43e08e5844ba92'),
+    Name: 'kavya',
+    city: 'ernakulam',
+    phn: '9895656',
+    age: 22
+  }
+]
+
+

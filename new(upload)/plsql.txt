@@ -1,0 +1,24 @@
+mysql> use plia;
+Database changed
+mysql> DELIMITER !!
+mysql> CREATE PROCEDURE num_greate(a INT,b INT,c INT)
+    -> BEGIN
+    ->     IF (a>b) AND (a>c) THEN
+    ->         SELECT a AS greatest;
+    ->     ELSEIF (b>a) AND (b>c) THEN
+    ->         SELECT b AS greatest;
+    ->     ELSE
+    ->         SELECT c AS greatest;
+    ->     END IF;
+    -> END !!
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call num_greate(7,8,9) !!
++----------+
+| greatest |
++----------+
+|        9 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)

@@ -1,0 +1,37 @@
+DDL(ALTER)
+
+
+mysql> alter table susu add (address varchar(30));
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from susu;
++----+------+-------+---------+
+| SI | name | actor | address |
++----+------+-------+---------+
+|  1 | kavi | yes   | NULL    |
+|  2 | rai  | no    | NULL    |
++----+------+-------+---------+
+
+
+mysql> select * from susu;
++----+-----------+-------+---------+
+| SI | attribute | actor | address |
++----+-----------+-------+---------+
+|  1 | kavi      | yes   | NULL    |
+|  2 | rai       | no    | NULL    |
++----+-----------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> alter table susu rename column address to place;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from susu;
++----+-----------+-------+-------+
+| SI | attribute | actor | place |
++----+-----------+-------+-------+
+|  1 | kavi      | yes   | NULL  |
+|  2 | rai       | no    | NULL  |
++----+-----------+-------+-------+
+2 rows in set (0.00 sec)

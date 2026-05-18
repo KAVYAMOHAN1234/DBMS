@@ -1,0 +1,100 @@
+mysql> create database empz;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use empz;
+Database changed
+mysql> create table jaaa(empid int not null,
+    -> empname varchar(40),
+    -> salary int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc jaaa;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| empid   | int         | NO   |     | NULL    |       |
+| empname | varchar(40) | YES  |     | NULL    |       |
+| salary  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into jaaa values(1,'arun',35000),
+    -> (2,'aun',45000),
+    -> (3,'laun',75000),
+    -> (4,'paun',95000);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from jaaa;
++-------+---------+--------+
+| empid | empname | salary |
++-------+---------+--------+
+|     1 | arun    |  35000 |
+|     2 | aun     |  45000 |
+|     3 | laun    |  75000 |
+|     4 | paun    |  95000 |
++-------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from jaaa where name like '%a';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> select * from jaaa where name like 'a';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql>
+mysql>
+mysql> select name from jaaa where name like '%a';
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql>
+mysql> select empname from jaaa where empname like '%a';
+Empty set (0.00 sec)
+
+mysql> select empname from jaaa where empname like 'a%';
++---------+
+| empname |
++---------+
+| arun    |
+| aun     |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from jaaa where salary > 55000;
++-------+---------+--------+
+| empid | empname | salary |
++-------+---------+--------+
+|     3 | laun    |  75000 |
+|     4 | paun    |  95000 |
++-------+---------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select * from jaaa where empname like 'a%';
++-------+---------+--------+
+| empid | empname | salary |
++-------+---------+--------+
+|     1 | arun    |  35000 |
+|     2 | aun     |  45000 |
++-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select avg(salary) as average_salary from jaaa;
++----------------+
+| average_salary |
++----------------+
+|     62500.0000 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> select max(salary) as maximun_salary from jaaa;
++----------------+
+| maximun_salary |
++----------------+
+|          95000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary)as minimum_salary from jaaa;
++----------------+
+| minimum_salary |
++----------------+
+|          35000 |
++----------------+
+1 row in set (0.01 sec)

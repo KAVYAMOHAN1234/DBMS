@@ -1,0 +1,57 @@
+mysql> delimiter //
+mysql> create procedure display_tables()
+    -> begin
+    -> select * from student;
+    -> select * from customer;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call display_tables()//
++----+-------+--------+------+
+| id | name  | course | mark |
++----+-------+--------+------+
+|  1 | anu   | cpp    |   20 |
+|  2 | alanu | se     |   30 |
+|  3 | lanu  | c      |   10 |
+|  4 | uku   | c++    |   20 |
+|  5 | agan  | c      |   60 |
+|  6 | agan  | c      |   60 |
+|  7 | agan  | c      |   60 |
++----+-------+--------+------+
+7 rows in set (0.00 sec)
+
++----+-------+--------+---------+
+| id | name  | amount | product |
++----+-------+--------+---------+
+|  1 | manu  |     56 | soap    |
+|  2 | manna |     26 | pencil  |
+|  3 | anna  |     76 | pen     |
+|  4 | anu   |     70 | book    |
++----+-------+--------+---------+
+4 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+mysql> delimiter !!
+mysql> create procedure invoice_greater(a int,b int,c int)
+    -> begin
+    -> if (a>b)and (a>c) then
+    -> select a as 'greatest';
+    -> elseif(b>c)and(b>a)then
+    -> select b as 'greatest';
+    -> else
+    -> select c as 'greatest';
+    -> end if;
+    -> end !!
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call invoice_greater(4,10,9)!!
++----------+
+| greatest |
++----------+
+|       10 |
++----------+
+
+
